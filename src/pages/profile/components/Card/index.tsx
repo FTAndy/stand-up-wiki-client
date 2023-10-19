@@ -9,6 +9,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Rating from '@mui/material/Rating';
 import { Special } from 'types/comdian'
 import { useGlobalStore } from 'store'
+import { CardActionArea } from '@mui/material';
 import './index.scss'
 
 interface Props {
@@ -25,35 +26,35 @@ export default function MediaControlCard(props: Props) {
   const {setPlayingSpecial} = useGlobalStore(state => state)
 
   return (
-    <Card className={`comedian-card ${className}`} sx={{ display: 'flex' }}>
-      <CardMedia
-        component="img"
-        sx={{ width: 151 }}
-        image={coverImgURL}
-        // alt=""
-      />
+    <Card className={` ${className}`} sx={{ display: 'flex' }}>
+      <CardActionArea 
+        onClick={() => {
+          setPlayingSpecial(special)
+        }} 
+        className='comedian-card'
+      >
+        <CardMedia
+          component="img"
+          sx={{ width: 151 }}
+          image={coverImgURL}
+          // alt=""
+        />
 
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent className='body' sx={{ flex: '1 0 auto' }}>
-          <Typography component="div" variant="h5">
-            { specialName }
-          </Typography>
-          <Typography className='datetime' variant="subtitle1" color="text.secondary" component="div">
-            { datetime }
-          </Typography>
-          <Typography className='duration' variant="subtitle1" color="text.secondary" component="div">
-            { runtimeDuration }
-          </Typography>
-          <Rating name="half-rating-read" defaultValue={parseFloat(rating)} precision={0.5} max={10} readOnly />
-        </CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-          <IconButton onClick={() => {
-            setPlayingSpecial(special)
-          }} aria-label="play/pause">
-            <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-          </IconButton>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <CardContent className='body' sx={{ flex: '1 0 auto' }}>
+            <Typography component="div" variant="h5">
+              { specialName }
+            </Typography>
+            <Typography className='datetime' variant="subtitle1" color="text.secondary" component="div">
+              { datetime }
+            </Typography>
+            <Typography className='duration' variant="subtitle1" color="text.secondary" component="div">
+              { runtimeDuration }
+            </Typography>
+            <Rating name="half-rating-read" defaultValue={parseFloat(rating)} precision={0.5} max={10} readOnly />
+          </CardContent>
         </Box>
-      </Box>
+      </CardActionArea>
     </Card>
   );
 }

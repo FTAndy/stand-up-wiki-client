@@ -20,10 +20,10 @@ const pages = [
     name: 'Profile',
     path: '/profile'
   },
-  {
-    name: 'Forum',
-    path: '/forrm'
-  }
+  // {
+  //   name: 'Forum',
+  //   path: '/forrm'
+  // }
 ]
 
 

@@ -1,15 +1,17 @@
-.special-container {
-  display: flex;
-  flex-direction: column;
-  width: 50vw;
-  margin: 0 auto;
-  .special {
-    margin: 10px;
-  }
-}
-
 .profile-container {
   display: flex;
   flex-direction: row;
+  padding: 4vh 2vw;
+  .video-container {
+    margin-right: 2vw;
+  }
+  .special-container {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    .special {
+      margin-bottom: 10px;
+    }
+  }
   
 }

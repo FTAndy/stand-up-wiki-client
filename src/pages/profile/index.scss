@@ -1,0 +1,15 @@
+.special-container {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  margin: 0 auto;
+  .special {
+    margin: 10px;
+  }
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  
+}

@@ -6,7 +6,7 @@ export type Comedian = {
   imdbURL: string,
   wikiURL: string,
   instagramURL: string,
-  specialDetails: Array<Special>,
+  specials: Array<Special>,
   ranking: number,
   news: Array<New>,
 }
@@ -20,7 +20,7 @@ type Role = {
   name: string,
 }
 
-type Special = {
+export type Special = {
   specialDetail: {
     datetime: string
     netflixURL: string
@@ -29,6 +29,7 @@ type Special = {
     rating: string
     coverImgURL: string
   }
+  bilibiliEmbedUrl: string
   specialName: string,
   comments: Array<CommentContent>
 }

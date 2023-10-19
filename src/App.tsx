@@ -1,10 +1,12 @@
 import './App.css';
 import Proflie from './pages/profile'
+import { Outlet } from "react-router-dom";
+
 
 function App() {
   return (
     <div className="App">
-      <Proflie></Proflie>
+      <Outlet />
     </div>
   );
 }

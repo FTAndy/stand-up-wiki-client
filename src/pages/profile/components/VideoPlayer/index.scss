@@ -1,10 +1,26 @@
-.iframe {
-  border: 0;
-  border-radius: 4px;
+.player-container {
+  position: relative;
   width: 60vw;
-  height: 80vh;
-}
-.video-title {
-  margin-top: 3vh !important;
-  font-weight: bold;
+  // min-height: 100vh;
+  .cover {
+    z-index: 1000;
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 60vw;
+    height: 80vh;
+  }
+  .iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 0;
+    border-radius: 4px;
+    width: 60vw;
+    height: 80vh;
+  }
+  .video-title {
+    margin-top: 3vh !important;
+    font-weight: bold;
+  }
 }

@@ -16,6 +16,9 @@ export default function VideoPlayer (props: VideoPlayerProps) {
 
   return (
     <div className='player-container'>
+      <div className='cover'>
+        
+      </div>
       <iframe 
         className='iframe'
         src={`${playingSpecial.bilibiliEmbedUrl}&danmaku=0`}

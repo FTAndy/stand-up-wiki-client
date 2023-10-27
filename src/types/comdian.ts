@@ -3,6 +3,7 @@ export type Comedians = Array<Comedian>
 export type Comedian = {
   name: string,
   desc: string,
+  avatarImgURL: string,
   imdbURL: string,
   wikiURL: string,
   instagramURL: string,
@@ -29,7 +30,12 @@ export type Special = {
     rating: string
     coverImgURL: string
   }
-  bilibiliEmbedUrl: string
+  bilibiliInfo: {
+    aid: number,
+    bvid: string,
+    cid: string,
+    iframeUrl: string
+  }
   specialName: string,
   comments: Array<CommentContent>
 }

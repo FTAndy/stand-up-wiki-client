@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import mockData from '../../service/mock.json'
+import mockData from '../../service/mock'
 import { Comedian } from '../../types/comdian'
 import ComedianCard from './components/Card'
 import VideoPlayer from './components/VideoPlayer'
@@ -12,12 +12,25 @@ export interface Props {
 console.log(mockData, 'mockData')
 
 export default function Profile (props: Props) {
-  const [comedian, setComedian] = useState<Comedian>(mockData as any)
-  const { setPlayingSpecial } = useGlobalStore()
+  const { setPlayingSpecial, currentComedian, setCurrentComedian } = useGlobalStore()
 
   useEffect(() => {
-    setPlayingSpecial(comedian.specials[0])
-  }, [comedian])
+    setCurrentComedian((mockData[0] as any))
+  }, [])
+
+  console.log(mockData[0], 'mockData[0]')
+
+
+  useEffect(() => {
+    if (currentComedian) {
+      setPlayingSpecial(currentComedian.specials[0])
+    }
+  }, [currentComedian])
+
+  if (!currentComedian) {
+    return null
+  }
+
 
   return (
     <div className='profile-container'>
@@ -26,7 +39,7 @@ export default function Profile (props: Props) {
         <VideoPlayer
         />
       </div>
-      <div className='special-container'>{ comedian.specials.map(s => {
+      <div className='special-container'>{ currentComedian.specials.map(s => {
         return <ComedianCard
             key={s.specialName}
             className='special'

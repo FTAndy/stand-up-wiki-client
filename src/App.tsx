@@ -16,10 +16,10 @@ const pages = [
     name: 'Comedians',
     path: '/comedians'
   },
-  {
-    name: 'Profile',
-    path: '/profile'
-  },
+  // {
+  //   name: 'Profile',
+  //   path: '/profile'
+  // },
   // {
   //   name: 'Forum',
   //   path: '/forrm'
@@ -28,6 +28,7 @@ const pages = [
 
 
 function App() {
+  console.log('render App')
   return (
     <div className="App">
       <AppBar className='app-bar' position="fixed">

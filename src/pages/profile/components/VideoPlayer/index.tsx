@@ -12,27 +12,43 @@ export interface VideoPlayerProps {
 export default function VideoPlayer (props: VideoPlayerProps) {
   const { playingSpecial } = useGlobalStore()
   const [isMouseOvered, setIsMouseOvered] = useState<Boolean>(false)
+  const [subtitleInited, setSubtitleInited] = useState(false)
+  const [iframeInited, setIframeInited] = useState(false)
+
   const subtitleRef = useRef<any>(null)
   const iframeRef = useRef<HTMLIFrameElement | null>(null)
+
+
+  console.log(playingSpecial, 'playingSpecial')
+
+  useEffect(() => {
+    setSubtitleInited(false)
+    setIframeInited(false)
+  }, [playingSpecial])
 
   const expiryTimestamp = useMemo(() => {
     const time = new Date();
     time.setSeconds(time.getSeconds() + 3600 * 2); // max 2 hour
     return time
-  }, [playingSpecial])
+  }, [iframeInited])
 
   const {
     totalSeconds,
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
+    // seconds,
+    // minutes,
+    // hours,
+    // days,
+    // isRunning,
     start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+    // pause,
+    // resume,
+    // restart,
+  } = useTimer({ 
+    expiryTimestamp, 
+    onExpire: () => console.warn('onExpire called') ,
+    autoStart: false
+  });
+
 
   useEffect(() => {
     if (subtitleRef.current) {
@@ -44,21 +60,9 @@ export default function VideoPlayer (props: VideoPlayerProps) {
     function mouseOverDone() {
       setIsMouseOvered(true)
     }
-    if (playingSpecial) {
-      setIsMouseOvered(false)
-      setTimeout(() => {
-        // TODO: unable to get video init event,
-        iframeRef.current?.addEventListener('mouseover', mouseOverDone)
-      }, 5000)
-      return () => {
-        iframeRef.current?.removeEventListener('mouseover', mouseOverDone)
-      }      
-    }
-  }, [playingSpecial])
 
-
-  useEffect(() => {
-    if (playingSpecial) {
+    if (iframeInited) {
+      // Init subtitle
       var options = {
         canvas: document.getElementById('canvas'), // canvas element
         // prescaleFactor: 100,
@@ -68,10 +72,22 @@ export default function VideoPlayer (props: VideoPlayerProps) {
         workerUrl: '/subtitles-octopus-worker.js' // Link to file "libassjs-worker.js"
       };
       subtitleRef.current = new SubtitlesOctopus(options);
-      // instance.setCurrentTime(90);
       console.log(subtitleRef.current, 'instance')
+
+      // Reset mouse over event
+      setIsMouseOvered(false)
+      setTimeout(() => {
+        // TODO: unable to get video init event,
+        iframeRef.current?.addEventListener('mouseover', mouseOverDone)
+      }, 5000)
+
+      start()
     }
-  }, [playingSpecial])
+
+    return () => {
+      iframeRef.current?.removeEventListener('mouseover', mouseOverDone)
+    }    
+  }, [iframeInited])
 
 
   if (!playingSpecial) {
@@ -84,10 +100,16 @@ export default function VideoPlayer (props: VideoPlayerProps) {
       <iframe 
         ref={iframeRef}
         className='iframe'
-        src={`${playingSpecial.bilibiliEmbedUrl}&danmaku=0`}
+        src={`${playingSpecial.bilibiliInfo.iframeUrl}&danmaku=0`}
+        onLoad={() => {
+          console.log('onload!!!')
+          setIframeInited(true)
+        }}
         allowFullScreen={true}
       />
-      <canvas width='1000' height='1000' className={`${isMouseOvered && 'show'} canvas`} id="canvas" />
+      <canvas width='1000' height='800' className={`${isMouseOvered && 'show'} canvas`} id="canvas" />
+      {/* TODO: add sidebar comment scroll */}
+      {/* TODO: subtitle en/zh_cn choose */}
       {/* TODO: platform choose */}
       {/* TODO: figure mention */}
       {/* TODO: split the video content into different material script, show blow the video */}

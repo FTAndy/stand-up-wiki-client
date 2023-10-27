@@ -3,12 +3,15 @@
   width: 60vw;
   // min-height: 100vh;
   .cover {
-    z-index: 1000;
+    z-index: -1000;
     position: relative;
     left: 0;
     top: 0;
     width: 60vw;
     height: 80vh;
+    &.float {
+      z-index: 1000;
+    }
   }
   .iframe {
     position: absolute;

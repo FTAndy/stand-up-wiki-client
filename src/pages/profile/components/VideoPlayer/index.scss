@@ -22,6 +22,17 @@
     width: 60vw;
     height: 80vh;
   }
+  .canvas {
+    position: absolute;
+    height: 80vh;
+    width: 60vw;
+    top: 0;
+    left: 0;
+    z-index: -10000;
+    &.show {
+      z-index: 10000;
+    }
+  }
   .video-title {
     margin-top: 3vh !important;
     font-weight: bold;
